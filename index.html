@@ -1,0 +1,1532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>JNV Anantnag | Smart Agriculture Management System</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background:
+        linear-gradient(
+            135deg,
+            #eef7f1,
+            #f7fbf8
+        );
+
+    color: #17251c;
+
+    min-height: 100vh;
+}
+
+/* =====================================================
+   NAVBAR
+===================================================== */
+
+.navbar {
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 1000;
+
+    background:
+        rgba(255,255,255,0.96);
+
+    backdrop-filter: blur(10px);
+
+    box-shadow:
+        0 3px 15px rgba(0,0,0,0.08);
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 15px 7%;
+}
+
+.logo {
+
+    font-size: 20px;
+
+    font-weight: 800;
+
+    color: #176b3a;
+}
+
+.nav-buttons {
+
+    display: flex;
+
+    gap: 8px;
+}
+
+.nav-btn {
+
+    border: none;
+
+    padding: 10px 18px;
+
+    border-radius: 25px;
+
+    cursor: pointer;
+
+    font-weight: 700;
+
+    background: #edf5ef;
+
+    color: #176b3a;
+
+    transition: 0.25s;
+}
+
+.nav-btn:hover {
+
+    transform: translateY(-2px);
+
+    background: #dceee1;
+}
+
+.nav-btn.active {
+
+    background: #176b3a;
+
+    color: white;
+}
+
+/* =====================================================
+   PAGE
+===================================================== */
+
+.page {
+
+    display: none;
+
+    padding: 35px 7% 50px;
+
+    animation: fadeIn 0.35s ease;
+}
+
+.page.active {
+
+    display: block;
+}
+
+@keyframes fadeIn {
+
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.header {
+
+    text-align: center;
+
+    margin-bottom: 25px;
+}
+
+.header h1 {
+
+    color: #176b3a;
+
+    font-size: clamp(28px, 5vw, 44px);
+
+    margin-bottom: 8px;
+}
+
+.header h2 {
+
+    color: #293b30;
+
+    font-size: clamp(18px, 3vw, 27px);
+
+    font-weight: 700;
+}
+
+.header p {
+
+    color: #65736a;
+
+    margin-top: 8px;
+
+    font-size: 14px;
+}
+
+/* =====================================================
+   CONNECTION
+===================================================== */
+
+.connection {
+
+    display: flex;
+
+    justify-content: center;
+
+    margin-bottom: 25px;
+}
+
+.connection-badge {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    padding: 10px 18px;
+
+    border-radius: 30px;
+
+    font-weight: 700;
+
+    font-size: 14px;
+
+    background: #fff3cd;
+
+    color: #856404;
+}
+
+.connection-badge.online {
+
+    background: #dff5e5;
+
+    color: #176b3a;
+}
+
+.connection-badge.offline {
+
+    background: #f8d7da;
+
+    color: #842029;
+}
+
+.status-dot {
+
+    width: 10px;
+
+    height: 10px;
+
+    border-radius: 50%;
+
+    background: #ffc107;
+}
+
+.online .status-dot {
+
+    background: #21a45a;
+
+    box-shadow: 0 0 8px #21a45a;
+}
+
+.offline .status-dot {
+
+    background: #dc3545;
+}
+
+/* =====================================================
+   CARDS
+===================================================== */
+
+.cards {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(210px, 1fr)
+        );
+
+    gap: 18px;
+
+    margin-top: 25px;
+}
+
+.card {
+
+    background: white;
+
+    border-radius: 18px;
+
+    padding: 22px;
+
+    box-shadow:
+        0 5px 20px rgba(0,0,0,0.07);
+
+    border: 1px solid #e6eee8;
+
+    transition: 0.25s;
+}
+
+.card:hover {
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 9px 25px rgba(0,0,0,0.10);
+}
+
+.card-title {
+
+    font-size: 14px;
+
+    color: #65736a;
+
+    font-weight: 700;
+
+    margin-bottom: 12px;
+}
+
+.card-value {
+
+    font-size: 30px;
+
+    font-weight: 800;
+
+    color: #176b3a;
+}
+
+.card-sub {
+
+    margin-top: 8px;
+
+    font-size: 13px;
+
+    color: #748078;
+}
+
+/* =====================================================
+   SPECIAL CARDS
+===================================================== */
+
+.card.pump {
+
+    border-left:
+        5px solid #176b3a;
+}
+
+.card.rain {
+
+    border-left:
+        5px solid #2f80ed;
+}
+
+.card.soil {
+
+    border-left:
+        5px solid #8b5e3c;
+}
+
+.card.system {
+
+    border-left:
+        5px solid #6f42c1;
+}
+
+/* =====================================================
+   SUMMARY
+===================================================== */
+
+.summary {
+
+    margin-top: 22px;
+
+    background: white;
+
+    border-radius: 18px;
+
+    padding: 24px;
+
+    box-shadow:
+        0 5px 20px rgba(0,0,0,0.07);
+
+    border: 1px solid #e6eee8;
+}
+
+.summary h3 {
+
+    color: #176b3a;
+
+    margin-bottom: 10px;
+}
+
+#summaryText {
+
+    color: #536159;
+
+    line-height: 1.7;
+}
+
+/* =====================================================
+   INFORMATION PAGE
+===================================================== */
+
+.info-container {
+
+    max-width: 900px;
+
+    margin: 0 auto;
+}
+
+.info-card {
+
+    background: white;
+
+    border-radius: 20px;
+
+    padding: 28px;
+
+    box-shadow:
+        0 5px 20px rgba(0,0,0,0.07);
+
+    border: 1px solid #e6eee8;
+}
+
+.info-card h2 {
+
+    color: #176b3a;
+
+    margin-bottom: 20px;
+}
+
+.info-list {
+
+    list-style: none;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 15px;
+}
+
+.info-list li {
+
+    background: #f4f9f5;
+
+    border-left:
+        4px solid #176b3a;
+
+    padding: 15px 18px;
+
+    border-radius: 10px;
+
+    line-height: 1.6;
+
+    color: #36443a;
+}
+
+.info-list strong {
+
+    color: #176b3a;
+}
+
+/* =====================================================
+   DEVELOPER
+===================================================== */
+
+.developer {
+
+    margin-top: 35px;
+
+    text-align: center;
+
+    padding: 25px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #176b3a,
+            #239653
+        );
+
+    color: white;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 7px 20px rgba(23,107,58,0.22);
+}
+
+.developer-small {
+
+    font-size: 12px;
+
+    letter-spacing: 1px;
+
+    opacity: 0.85;
+
+    margin-bottom: 8px;
+}
+
+.developer-name {
+
+    font-size: 25px;
+
+    font-weight: 800;
+}
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.footer {
+
+    text-align: center;
+
+    margin-top: 30px;
+
+    color: #78847c;
+
+    font-size: 13px;
+
+    line-height: 1.7;
+}
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 600px) {
+
+    .navbar {
+
+        padding: 12px 4%;
+
+        flex-direction: column;
+
+        gap: 12px;
+    }
+
+    .page {
+
+        padding:
+            25px 4% 40px;
+    }
+
+    .nav-buttons {
+
+        width: 100%;
+
+        justify-content: center;
+    }
+
+    .nav-btn {
+
+        flex: 1;
+
+        padding: 9px 12px;
+    }
+
+    .card-value {
+
+        font-size: 26px;
+    }
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- =====================================================
+     NAVIGATION
+===================================================== -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        JNV Anantnag
+    </div>
+
+    <div class="nav-buttons">
+
+        <button
+            class="nav-btn active"
+            onclick="showPage('dashboard', this)">
+            Dashboard
+        </button>
+
+        <button
+            class="nav-btn"
+            onclick="showPage('about', this)">
+            Project Information
+        </button>
+
+    </div>
+
+</nav>
+
+
+<!-- =====================================================
+     PAGE 1 - DASHBOARD
+===================================================== -->
+
+<section
+    id="dashboard"
+    class="page active">
+
+    <div class="header">
+
+        <h1>JNV Anantnag</h1>
+
+        <h2>
+            Smart Agriculture Management System
+        </h2>
+
+        <p>
+            Real-Time IoT Agriculture Monitoring Dashboard
+        </p>
+
+    </div>
+
+
+    <!-- CONNECTION STATUS -->
+
+    <div class="connection">
+
+        <div
+            id="connectionBadge"
+            class="connection-badge">
+
+            <span class="status-dot"></span>
+
+            <span id="connectionText">
+                Connecting to Firebase...
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         SENSOR CARDS
+    ================================================= -->
+
+    <div class="cards">
+
+        <!-- Temperature -->
+
+        <div class="card">
+
+            <div class="card-title">
+                🌡 Temperature
+            </div>
+
+            <div
+                id="temperature"
+                class="card-value">
+                --
+            </div>
+
+            <div class="card-sub">
+                DHT22 Sensor
+            </div>
+
+        </div>
+
+
+        <!-- Humidity -->
+
+        <div class="card">
+
+            <div class="card-title">
+                💧 Humidity
+            </div>
+
+            <div
+                id="humidity"
+                class="card-value">
+                --
+            </div>
+
+            <div class="card-sub">
+                Relative Humidity
+            </div>
+
+        </div>
+
+
+        <!-- Soil Moisture -->
+
+        <div class="card soil">
+
+            <div class="card-title">
+                🌱 Soil Moisture
+            </div>
+
+            <div
+                id="soilMoisture"
+                class="card-value">
+                --
+            </div>
+
+            <div
+                id="soilStatus"
+                class="card-sub">
+                --
+            </div>
+
+        </div>
+
+
+        <!-- Rain -->
+
+        <div class="card rain">
+
+            <div class="card-title">
+                🌧 Rain Status
+            </div>
+
+            <div
+                id="rain"
+                class="card-value">
+                --
+            </div>
+
+            <div
+                id="rainStatus"
+                class="card-sub">
+                --
+            </div>
+
+        </div>
+
+
+        <!-- Pump -->
+
+        <div class="card pump">
+
+            <div class="card-title">
+                🚰 Irrigation Pump
+            </div>
+
+            <div
+                id="pump"
+                class="card-value">
+                --
+            </div>
+
+            <div
+                id="pumpStatus"
+                class="card-sub">
+                --
+            </div>
+
+        </div>
+
+
+        <!-- Auto Mode -->
+
+        <div class="card">
+
+            <div class="card-title">
+                ⚙ Irrigation Mode
+            </div>
+
+            <div
+                id="autoMode"
+                class="card-value">
+                --
+            </div>
+
+            <div class="card-sub">
+                Automatic Control
+            </div>
+
+        </div>
+
+
+        <!-- Buzzer -->
+
+        <div class="card">
+
+            <div class="card-title">
+                🔔 Buzzer
+            </div>
+
+            <div
+                id="buzzer"
+                class="card-value">
+                --
+            </div>
+
+            <div class="card-sub">
+                System Alert
+            </div>
+
+        </div>
+
+
+        <!-- ESP32 -->
+
+        <div class="card system">
+
+            <div class="card-title">
+                📡 ESP32 Status
+            </div>
+
+            <div
+                id="esp32"
+                class="card-value">
+                --
+            </div>
+
+            <div class="card-sub">
+                Controller
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         SUMMARY
+    ================================================= -->
+
+    <div class="summary">
+
+        <h3>
+            System Summary
+        </h3>
+
+        <p id="summaryText">
+            Waiting for sensor data...
+        </p>
+
+    </div>
+
+
+    <!-- =================================================
+         TIME INFORMATION
+    ================================================= -->
+
+    <div class="cards">
+
+        <div class="card">
+
+            <div class="card-title">
+                🕒 Last ESP32 Update
+            </div>
+
+            <div
+                id="lastUpdate"
+                class="card-value"
+                style="font-size:20px;">
+                --
+            </div>
+
+            <div class="card-sub">
+                Firebase timestamp
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-title">
+                ⏱ ESP32 Uptime
+            </div>
+
+            <div
+                id="uptime"
+                class="card-value"
+                style="font-size:20px;">
+                --
+            </div>
+
+            <div class="card-sub">
+                Since ESP32 restart
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-title">
+                ☁ Cloud Refresh
+            </div>
+
+            <div
+                id="cloudRefresh"
+                class="card-value"
+                style="font-size:20px;">
+                --
+            </div>
+
+            <div class="card-sub">
+                Browser refresh time
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer">
+
+        JNV Anantnag<br>
+
+        Smart Agriculture Management System
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     PAGE 2 - PROJECT INFORMATION
+===================================================== -->
+
+<section
+    id="about"
+    class="page">
+
+    <div class="header">
+
+        <h1>
+            Project Information
+        </h1>
+
+        <h2>
+            Smart Agriculture Management System
+        </h2>
+
+    </div>
+
+
+    <div class="info-container">
+
+        <div class="info-card">
+
+            <h2>
+                Project Details
+            </h2>
+
+            <ul class="info-list">
+
+                <li>
+                    <strong>1. Project Type:</strong>
+                    A Smart Agriculture Management System
+                    based on IoT and AI technologies.
+                </li>
+
+                <li>
+                    <strong>2. IoT-Based System:</strong>
+                    The project uses Internet of Things
+                    technology for agriculture-related
+                    monitoring and control.
+                </li>
+
+                <li>
+                    <strong>3. AI-Based System:</strong>
+                    The project incorporates an
+                    AI-based approach for smart agriculture
+                    management.
+                </li>
+
+                <li>
+                    <strong>4. Farm Monitoring:</strong>
+                    The system automates farm monitoring.
+                </li>
+
+                <li>
+                    <strong>5. Resource Control:</strong>
+                    The system automates resource control
+                    for agricultural applications.
+                </li>
+
+                <li>
+                    <strong>6. Crop Yield:</strong>
+                    The system is designed to help increase
+                    crop yields.
+                </li>
+
+                <li>
+                    <strong>7. Water Reduction:</strong>
+                    The project aims to reduce water usage.
+                </li>
+
+                <li>
+                    <strong>8. Labour Reduction:</strong>
+                    The project aims to reduce the amount
+                    of labour required for agricultural
+                    management.
+                </li>
+
+            </ul>
+
+        </div>
+
+
+        <!-- =================================================
+             DEVELOPER - END OF PAGE 2
+        ================================================= -->
+
+        <div class="developer">
+
+            <div class="developer-small">
+                PROJECT DEVELOPED BY
+            </div>
+
+            <div class="developer-name">
+                Er. Tahir Insights
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer">
+
+        JNV Anantnag<br>
+
+        Smart Agriculture Management System
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+// ======================================================
+// FIREBASE CONFIGURATION
+// ======================================================
+
+const FIREBASE_URL =
+    "https://smart-agriculture-manage-2bd9e-default-rtdb.asia-southeast1.firebasedatabase.app";
+
+const FIREBASE_PATH =
+    "/smartAgriculture.json";
+
+
+// ======================================================
+// VARIABLES
+// ======================================================
+
+let lastEsp32Timestamp = null;
+
+let lastEsp32TimestampChange = 0;
+
+
+// ======================================================
+// PAGE SWITCHING
+// ======================================================
+
+function showPage(pageId, button) {
+
+    document
+        .querySelectorAll(".page")
+        .forEach(page => {
+
+            page.classList.remove("active");
+
+        });
+
+    document
+        .getElementById(pageId)
+        .classList.add("active");
+
+
+    document
+        .querySelectorAll(".nav-btn")
+        .forEach(btn => {
+
+            btn.classList.remove("active");
+
+        });
+
+    button.classList.add("active");
+
+}
+
+
+// ======================================================
+// CONNECTION STATUS
+// ======================================================
+
+function setConnectionStatus(online) {
+
+    const badge =
+        document.getElementById("connectionBadge");
+
+    const text =
+        document.getElementById("connectionText");
+
+
+    if (online) {
+
+        badge.classList.add("online");
+
+        badge.classList.remove("offline");
+
+        text.textContent =
+            "ESP32 ONLINE • FIREBASE CONNECTED";
+
+    } else {
+
+        badge.classList.add("offline");
+
+        badge.classList.remove("online");
+
+        text.textContent =
+            "ESP32 DATA OFFLINE";
+
+    }
+
+}
+
+
+// ======================================================
+// NUMBER FORMAT
+// ======================================================
+
+function numberValue(value, decimals = 1) {
+
+    const number = Number(value);
+
+    if (!Number.isFinite(number)) {
+
+        return "--";
+
+    }
+
+    return number.toFixed(decimals);
+
+}
+
+
+// ======================================================
+// UNIX TIME FORMAT
+// ======================================================
+
+function formatTimestamp(timestamp) {
+
+    const value = Number(timestamp);
+
+    if (!Number.isFinite(value) || value <= 0) {
+
+        return "Time unavailable";
+
+    }
+
+    const date =
+        new Date(value * 1000);
+
+    return date.toLocaleString(
+        "en-IN",
+        {
+            dateStyle: "medium",
+            timeStyle: "medium"
+        }
+    );
+
+}
+
+
+// ======================================================
+// UPTIME FORMAT
+// ======================================================
+
+function formatUptime(milliseconds) {
+
+    const ms = Number(milliseconds);
+
+    if (!Number.isFinite(ms) || ms < 0) {
+
+        return "--";
+
+    }
+
+    let totalSeconds =
+        Math.floor(ms / 1000);
+
+    const days =
+        Math.floor(totalSeconds / 86400);
+
+    totalSeconds %= 86400;
+
+    const hours =
+        Math.floor(totalSeconds / 3600);
+
+    totalSeconds %= 3600;
+
+    const minutes =
+        Math.floor(totalSeconds / 60);
+
+    const seconds =
+        totalSeconds % 60;
+
+
+    return (
+        days + "d " +
+        hours + "h " +
+        minutes + "m " +
+        seconds + "s"
+    );
+
+}
+
+
+// ======================================================
+// UPDATE DASHBOARD
+// ======================================================
+
+function updateDashboard(data) {
+
+    if (!data) {
+
+        setConnectionStatus(false);
+
+        return;
+
+    }
+
+
+    // ------------------------------------------
+    // TEMPERATURE
+    // ------------------------------------------
+
+    document.getElementById("temperature")
+        .textContent =
+        numberValue(data.temperature) + " °C";
+
+
+    // ------------------------------------------
+    // HUMIDITY
+    // ------------------------------------------
+
+    document.getElementById("humidity")
+        .textContent =
+        numberValue(data.humidity) + " %";
+
+
+    // ------------------------------------------
+    // SOIL MOISTURE
+    // ------------------------------------------
+
+    document.getElementById("soilMoisture")
+        .textContent =
+        numberValue(data.soilMoisture, 0) + " %";
+
+
+    document.getElementById("soilStatus")
+        .textContent =
+        data.soilStatus || "--";
+
+
+    // ------------------------------------------
+    // RAIN
+    // ------------------------------------------
+
+    document.getElementById("rain")
+        .textContent =
+        data.rain
+            ? "DETECTED"
+            : "NO RAIN";
+
+
+    document.getElementById("rainStatus")
+        .textContent =
+        data.rainStatus || "--";
+
+
+    // ------------------------------------------
+    // PUMP
+    // ------------------------------------------
+
+    document.getElementById("pump")
+        .textContent =
+        data.pump
+            ? "ON"
+            : "OFF";
+
+
+    document.getElementById("pumpStatus")
+        .textContent =
+        data.pumpStatus || "--";
+
+
+    // ------------------------------------------
+    // AUTO MODE
+    // ------------------------------------------
+
+    document.getElementById("autoMode")
+        .textContent =
+        data.autoMode
+            ? "AUTO"
+            : "MANUAL";
+
+
+    // ------------------------------------------
+    // BUZZER
+    // ------------------------------------------
+
+    document.getElementById("buzzer")
+        .textContent =
+        data.buzzer
+            ? "ON"
+            : "OFF";
+
+
+    // ------------------------------------------
+    // ESP32
+    // ------------------------------------------
+
+    document.getElementById("esp32")
+        .textContent =
+        data.esp32 || "UNKNOWN";
+
+
+    // ------------------------------------------
+    // LAST UPDATE
+    // ------------------------------------------
+
+    document.getElementById("lastUpdate")
+        .textContent =
+        formatTimestamp(data.lastUpdate);
+
+
+    // ------------------------------------------
+    // ESP32 UPTIME
+    //
+    // The ESP32 itself does not send uptime
+    // separately.
+    //
+    // We calculate approximate uptime using
+    // the Firebase update timestamp and the
+    // browser's first observed value.
+    // ------------------------------------------
+
+    const currentTimestamp =
+        Number(data.lastUpdate);
+
+    if (Number.isFinite(currentTimestamp) &&
+        currentTimestamp > 0) {
+
+        document.getElementById("uptime")
+            .textContent =
+            "Updating";
+
+    }
+
+
+    // ------------------------------------------
+    // CLOUD REFRESH
+    // ------------------------------------------
+
+    document.getElementById("cloudRefresh")
+        .textContent =
+        new Date().toLocaleTimeString("en-IN");
+
+
+    // ------------------------------------------
+    // SYSTEM SUMMARY
+    // ------------------------------------------
+
+    let summary = "";
+
+
+    if (data.rain) {
+
+        summary =
+            "Rain has been detected. " +
+            "The irrigation pump is kept OFF " +
+            "to avoid unnecessary watering.";
+
+    }
+
+    else if (data.pump) {
+
+        summary =
+            "Soil moisture is low and automatic " +
+            "irrigation is active. The pump is ON.";
+
+    }
+
+    else if (Number(data.soilMoisture) <= 30) {
+
+        summary =
+            "Soil moisture is low. The system " +
+            "is monitoring the condition for " +
+            "automatic irrigation.";
+
+    }
+
+    else {
+
+        summary =
+            "The agriculture system is operating " +
+            "normally. Soil moisture and environmental " +
+            "conditions are being monitored.";
+
+    }
+
+
+    document.getElementById("summaryText")
+        .textContent = summary;
+
+
+    // ------------------------------------------
+    // ESP32 DATA FRESHNESS
+    //
+    // lastUpdate is now a real Unix timestamp.
+    // ------------------------------------------
+
+    if (Number.isFinite(currentTimestamp)) {
+
+        const now =
+            Math.floor(Date.now() / 1000);
+
+        const age =
+            now - currentTimestamp;
+
+
+        if (
+            age >= 0 &&
+            age <= 15
+        ) {
+
+            setConnectionStatus(true);
+
+        } else {
+
+            setConnectionStatus(false);
+
+        }
+
+    } else {
+
+        setConnectionStatus(false);
+
+    }
+
+}
+
+
+// ======================================================
+// FETCH FIREBASE DATA
+// ======================================================
+
+async function loadFirebaseData() {
+
+    try {
+
+        const url =
+            FIREBASE_URL +
+            FIREBASE_PATH +
+            "?t=" +
+            Date.now();
+
+
+        const response =
+            await fetch(url, {
+                method: "GET",
+                cache: "no-store"
+            });
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Firebase HTTP error: " +
+                response.status
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        if (!data) {
+
+            throw new Error(
+                "No data received from Firebase."
+            );
+
+        }
+
+
+        updateDashboard(data);
+
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Firebase error:",
+            error
+        );
+
+        setConnectionStatus(false);
+
+    }
+
+}
+
+
+// ======================================================
+// INITIAL LOAD
+// ======================================================
+
+loadFirebaseData();
+
+
+// ======================================================
+// REFRESH EVERY 3 SECONDS
+// ======================================================
+
+setInterval(
+    loadFirebaseData,
+    3000
+);
+
+</script>
+
+</body>
+</html>
